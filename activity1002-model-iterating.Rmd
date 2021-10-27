@@ -14,6 +14,10 @@ In this activity, we will continue working with the data from Activity 6 (Pivoti
 
 For this activity, you will need the `{tidyverse}` and `{broom}` packages.
 
+```{r loading_in}
+library(tidyverse)
+library(broom)
+```
 
 
 
@@ -25,6 +29,11 @@ Note that the data we have is a slightly modified version of the original data s
 The result is a data frame where each row contains a different course and columns represent variables about the courses and professors.
 
 The data are stored in the repo's `data` folder as `evals-mod.csv`.
+
+```{r read_in_data}
+evals <- read_csv(here::here("data","evals-mod.csv"))
+```
+
 
 ### Data codebook
 
@@ -60,9 +69,9 @@ Complete the code chunk below by filling in the blanks so that you *create* a ne
 The [`rowwise`](https://dplyr.tidyverse.org/reference/rowwise.html) documentation will be helpful for seeing additional examples of using this function.  
 
 ```{r rowwise-mean}
-_____ <- _____ %>% 
+bty_avg <- evals %>% 
   rowwise() %>% 
-  ______(bty_avg = mean(c_across(___________:___________))) %>% 
+  mean(bty_avg = mean(c_across(bty_f1lower:bty_m2upper))) %>% 
   ungroup()
 ```
 
@@ -78,9 +87,7 @@ Why, or why not?
 Also, include any numerical summary statistics (uses a `dplyr::summarise` pipeline, not the `BASE::summary` function) that will help in making your response more effective.
 
 
-
-
-**Response**:
+**Response**: 
 
 
 A note on the `BASE::summary` function.
@@ -96,8 +103,6 @@ Why, or why not?
 Also, include any numerical summary statistics (use a `dplyr::summarise` pipeline, not the `BASE::summary` function) that will help in making your response more effective.
 
 
-
-
 **Response**:
 
 
@@ -106,8 +111,6 @@ Describe this distribution and comment on what this tells you about how students
 Is this what you expected to see?
 Why, or why not?
 Also, include any numerical summary statistics (use a `dplyr::summarise` pipeline, not the `BASE::summary` function) that will help in making your response more effective.
-
-
 
 
 **Response**:
@@ -134,7 +137,6 @@ Be sure to comment on whether each of these values makes sense in this context.
 Also, use your `{dplyr}` skills on this `tidy` output to only include the model terms, parameter estimates, and standard errors. 
 
 
-
 **Response**:
 
 
@@ -151,9 +153,8 @@ Use the `broom::glance` function to view model diagnostics.
 
 Comment on the overall fit by looking at your new visualization and these model summary statistics.
 
+
 **Response**:
-
-
 
 
 Compare the `tidy` and `glanced` output to running `summary(mod_bty_gender)`.
@@ -191,6 +192,7 @@ You should have a tibble with 3 rows and two columns.
 What are the two column names?
 Can you change the second column's name?
 If so, how?
+
 
 **Response**:
 
@@ -235,14 +237,11 @@ nested_data %>%
 Plot the estimated regression coefficients for your three models (this would be a good opportunity to use a `facet_*` layer) and provide a brief discussion comparing these values.
 
 
-
-
 **Response**:
+
 
 `unnest` your dataset by the `glanced` column..
 Plot the `r.squared`s for your three models and provide a brief discussion comparing these values and commenting on the models' appropriateness.
-
-
 
 
 **Response**:
@@ -250,8 +249,6 @@ Plot the `r.squared`s for your three models and provide a brief discussion compa
 
 `unnest` your dataset by the `glanced` column..
 Plot the residuals vs. fitted values provide a brief discussion commenting on the models' appropriateness.
-
-
 
 
 **Response**:

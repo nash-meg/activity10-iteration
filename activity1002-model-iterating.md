@@ -10,6 +10,25 @@ In this activity, we will continue working with the data from Activity 6
 For this activity, you will need the `{tidyverse}` and `{broom}`
 packages.
 
+``` r
+library(tidyverse)
+```
+
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+
+    ## ✓ ggplot2 3.3.4     ✓ purrr   0.3.4
+    ## ✓ tibble  3.1.2     ✓ dplyr   1.0.7
+    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+    ## ✓ readr   1.4.0     ✓ forcats 0.5.1
+
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
+
+``` r
+library(broom)
+```
+
 ### The data
 
 Hamermesh and Parker gathered their data from end of semester student
@@ -23,6 +42,33 @@ data frame where each row contains a different course and columns
 represent variables about the courses and professors.
 
 The data are stored in the repo’s `data` folder as `evals-mod.csv`.
+
+``` r
+evals <- read_csv(here::here("data","evals-mod.csv"))
+```
+
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## cols(
+    ##   score = col_double(),
+    ##   rank = col_character(),
+    ##   ethnicity = col_character(),
+    ##   gender = col_character(),
+    ##   language = col_character(),
+    ##   age = col_double(),
+    ##   cls_perc_eval = col_double(),
+    ##   cls_did_eval = col_double(),
+    ##   cls_students = col_double(),
+    ##   cls_level = col_character(),
+    ##   cls_profs = col_character(),
+    ##   cls_credits = col_character(),
+    ##   bty_f1lower = col_double(),
+    ##   bty_f1upper = col_double(),
+    ##   bty_f2upper = col_double(),
+    ##   bty_m1lower = col_double(),
+    ##   bty_m1upper = col_double(),
+    ##   bty_m2upper = col_double()
+    ## )
 
 ### Data codebook
 
@@ -67,15 +113,16 @@ documentation will be helpful for seeing additional examples of using
 this function.
 
 ``` r
-_____ <- _____ %>% 
+bty_avg <- evals %>% 
   rowwise() %>% 
-  ______(bty_avg = mean(c_across(___________:___________))) %>% 
+  mean(bty_avg = mean(c_across(bty_f1lower:bty_m2upper))) %>% 
   ungroup()
 ```
 
-    ## Error: <text>:1:1: unexpected input
-    ## 1: _
-    ##     ^
+    ## Warning in mean.default(., bty_avg = mean(c_across(bty_f1lower:bty_m2upper))):
+    ## argument is not numeric or logical: returning NA
+
+    ## Error in UseMethod("ungroup"): no applicable method for 'ungroup' applied to an object of class "c('double', 'numeric')"
 
 The `rowwise` function works a lot like `group_by`, except that it
 groups the data frame one row at a time so that any operation applied to
