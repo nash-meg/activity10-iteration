@@ -1,6 +1,6 @@
 ---
 title: "Activity 10.2 - Model Iterating"
-author: "Name"
+author: "Meghan Nash"
 output: github_document
 ---
 
